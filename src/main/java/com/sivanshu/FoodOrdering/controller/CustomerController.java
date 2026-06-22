@@ -24,16 +24,16 @@ public class CustomerController {
     public List<Customer> getAllCustomer(){
         return cservice.viewAllCustomer();
     }
-    @GetMapping("id/{id}")
+    @GetMapping("/{id}")
     public Optional<Customer> getCustomerById(@PathVariable Long id){
         return cservice.getCustomerById(id);
     }
-    @PutMapping("id/{id}")
+    @PutMapping("/{id}")
     public String UpdateCusomerById(@PathVariable Long id,@RequestBody Customer customer){
         cservice.modifyCustomer(id,customer);
         return "Updated";
     }
-    @DeleteMapping("id/{id}")
+    @DeleteMapping("/{id}")
     public String deleteCustomerById(@PathVariable Long id){
         cservice.deleteCustomer(id);
         return "Customer with id: "+id+" Deleted Successfully !";
