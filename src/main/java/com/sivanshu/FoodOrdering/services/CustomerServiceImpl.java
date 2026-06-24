@@ -12,7 +12,7 @@ import java.util.Optional;
 public class CustomerServiceImpl implements CustomerService{
 
     @Autowired // dependency injection means give me the object of CustomerRepository
-    CustomerRepository crepo; // Now I can use the methods of Repository here
+    private CustomerRepository crepo; // Now I can use the methods of Repository here
 
     @Override
     public void registerCustomer(Customer customer) {

@@ -12,7 +12,7 @@ import java.util.Optional;
 public class RestaurantServiceImpl implements RestaurantService{
 
     @Autowired
-    RestaurantRepository resrepo;
+    private RestaurantRepository resrepo;
 
     @Override
     public void registerRestaurant(Restaurant restaurant) {

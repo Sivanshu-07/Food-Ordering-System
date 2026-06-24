@@ -13,7 +13,7 @@ import java.util.Optional;
 public class RestaurantController {
 
     @Autowired
-    RestaurantService resservice;
+    private RestaurantService resservice;
 
     @PostMapping
     public String registerRestaurant(@RequestBody Restaurant rest){

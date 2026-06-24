@@ -13,7 +13,7 @@ import java.util.Optional;
 public class CustomerController {
 
     @Autowired
-    CustomerService cservice;
+    private CustomerService cservice;
 
     @PostMapping
     public String createCustomer(@RequestBody Customer customer){
