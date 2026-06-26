@@ -1,5 +1,6 @@
 package com.sivanshu.FoodOrdering.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonBackReference  // to ignore the cart information again after displaying both cart and cartitems for once
     @ManyToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;

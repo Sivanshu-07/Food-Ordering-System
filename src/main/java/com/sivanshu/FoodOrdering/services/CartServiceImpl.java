@@ -58,7 +58,7 @@ public class CartServiceImpl implements CartService {
     public void clearCart(Long customerId) {
         Cart cart = cartrepo.findByCustomerId(customerId);
         // We are not deleting the cart as it is permanent when the customer register
-        // we are deleting cartitems from the respective cart
+        // we are deleting cartitems from the respective cart bcuz if the carditem gets deleted->Cart will automatically become empty
         List<CartItem> cartItems = cart.getCartItems();
         cartItemRepo.deleteAll(cartItems); // whenever we need to delete the whole list we will use deleteAll() provided by JpaRepo
     }

@@ -1,5 +1,6 @@
 package com.sivanshu.FoodOrdering.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class Cart {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @JsonManagedReference  // to include the cartitems also when we fetch cart
     @OneToMany(mappedBy = "cart")
     private List<CartItem> cartItems;
 
