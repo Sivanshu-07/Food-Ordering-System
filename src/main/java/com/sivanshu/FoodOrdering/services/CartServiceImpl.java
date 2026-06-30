@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -27,6 +28,15 @@ public class CartServiceImpl implements CartService {
     public void addFoodToCart(Long customerId, Long foodItemId) {
         Cart cart = cartrepo.findByCustomerId(customerId);
         FoodItem foodItem = foodrepo.findById(foodItemId).orElseThrow();
+        if(cart.getRestaurant()==null){
+            cart.setRestaurant(foodItem.getRestaurant());
+            cartrepo.save(cart);
+        }
+        else if(!Objects.equals(cart.getRestaurant().getId(), foodItem.getRestaurant().getId())){
+            // Different restaurant is not allowed
+            throw new RuntimeException("You can order from only one restaurant at a time."); // if this statement execute then method will end here
+
+        }
         Optional<CartItem> existingcartItem = cartItemRepo.findByCartAndFoodItem(cart,foodItem);
         if(existingcartItem.isPresent()){
                 CartItem item = existingcartItem.get();
@@ -51,7 +61,17 @@ public class CartServiceImpl implements CartService {
         Cart cart = cartrepo.findByCustomerId(customerId);
         FoodItem foodItem = foodrepo.findById(foodItemId).orElseThrow();
         CartItem cartItem = cartItemRepo.findByCartAndFoodItem(cart,foodItem).orElseThrow();
+        // 1. Delete from database
         cartItemRepo.delete(cartItem);
+
+        // 2. Remove from in-memory collection
+        cart.getCartItems().remove(cartItem);
+
+        // after deleting cartitems , cartitems will become empty not null
+        if(cart.getCartItems().isEmpty()){
+            cart.setRestaurant(null);
+            cartrepo.save(cart);
+        }
     }
 
     @Override
@@ -61,5 +81,8 @@ public class CartServiceImpl implements CartService {
         // we are deleting cartitems from the respective cart bcuz if the carditem gets deleted->Cart will automatically become empty
         List<CartItem> cartItems = cart.getCartItems();
         cartItemRepo.deleteAll(cartItems); // whenever we need to delete the whole list we will use deleteAll() provided by JpaRepo
+        cart.getCartItems().clear();
+        cart.setRestaurant(null);
+        cartrepo.save(cart);
     }
 }

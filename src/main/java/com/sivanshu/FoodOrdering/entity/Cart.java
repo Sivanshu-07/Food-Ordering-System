@@ -16,6 +16,10 @@ public class Cart {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
+
     @JsonManagedReference  // to include the cartitems also when we fetch cart
     @OneToMany(mappedBy = "cart")
     private List<CartItem> cartItems;
@@ -38,6 +42,14 @@ public class Cart {
 
     public Customer getCustomer() {
         return customer;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public void setCustomer(Customer customer) {
