@@ -35,6 +35,18 @@ public class Order {
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL) // mappedBy takes Object's variable name, Cascade propagates parent operations (save, update, delete, etc.) to child entities.
     private List<OrderItem> orderItems;
 
+    @JsonManagedReference
+    @OneToOne(mappedBy = "order")
+    private Payment payment;
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
     public Long getId() {
         return id;
     }

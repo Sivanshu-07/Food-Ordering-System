@@ -7,6 +7,7 @@ import com.sivanshu.FoodOrdering.entity.OrderItem;
 import com.sivanshu.FoodOrdering.enums.OrderStatus;
 import com.sivanshu.FoodOrdering.repository.CartRepository;
 import com.sivanshu.FoodOrdering.repository.OrderRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ public class OrderServiceImpl implements OrderService{
     private CartService cartService;
 
     @Override
+    @Transactional // this is for -> suppose everything goes correct but method throws a exception at the last line while clearing the cart then everything which we have done earlier,it should be roll back
     public void placeOrder(Long customerId) {
         Cart cart = cartRepo.findByCustomerId(customerId);
         List<CartItem> cartItems = cart.getCartItems();
