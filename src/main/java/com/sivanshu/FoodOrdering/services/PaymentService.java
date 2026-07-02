@@ -26,4 +26,6 @@ public interface PaymentService {
     // View payments by status (Admin)
     List<Payment> getPaymentsByStatus(PaymentStatus paymentStatus);
 
+    // View payments by method (Admin)
+    List<Payment> getPaymentsByMethod(PaymentMethod paymentMethod);
 }

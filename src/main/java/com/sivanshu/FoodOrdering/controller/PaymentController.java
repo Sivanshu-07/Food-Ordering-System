@@ -47,4 +47,9 @@ public class PaymentController {
     public List<Payment> getPaymentsByStatus(@PathVariable PaymentStatus paymentStatus) {
         return paymentService.getPaymentsByStatus(paymentStatus);
     }
+
+    @GetMapping("/method/{paymentMethod}")
+    public List<Payment> getPaymentsByMethod(@PathVariable PaymentMethod paymentMethod) {
+        return paymentService.getPaymentsByMethod(paymentMethod);
+    }
 }

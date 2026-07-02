@@ -2,6 +2,8 @@ package com.sivanshu.FoodOrdering.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "restaurants")
 public class Restaurant {
@@ -18,7 +20,8 @@ public class Restaurant {
     @Column(unique = true,nullable = false)
     private String phone;
 
-    private double rating;
+    @Column(nullable = false)
+    private double rating; // this will store average restaurant rating given by a customer
 
     public Long getId() {
         return id;

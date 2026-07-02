@@ -22,6 +22,10 @@ public class Order {
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
+    @JsonManagedReference
+    @OneToOne(mappedBy = "order")
+    private Rating rating; // this will not create a separate column(rating) in order table , here rating is just mappedBy order that's it
+
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
@@ -95,6 +99,14 @@ public class Order {
         this.orderDate = orderDate;
     }
 
+    public Rating getRating() {
+        return rating;
+    }
+
+    public void setRating(Rating rating) {
+        this.rating = rating;
+    }
+
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }
@@ -103,3 +115,4 @@ public class Order {
         this.orderItems = orderItems;
     }
 }
+

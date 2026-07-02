@@ -114,4 +114,9 @@ public class PaymentServiceImpl implements PaymentService {
     public List<Payment> getPaymentsByStatus(PaymentStatus paymentStatus) {
         return paymentRepository.findByPaymentStatus(paymentStatus);
     }
+
+    @Override
+    public List<Payment> getPaymentsByMethod(PaymentMethod paymentMethod) {
+        return paymentRepository.findByPaymentMethod(paymentMethod);
+    }
 }
