@@ -56,7 +56,7 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public double getPriceAtOrder(double price) {
+    public double getPriceAtOrder() {
         return priceAtOrder;
     }
 

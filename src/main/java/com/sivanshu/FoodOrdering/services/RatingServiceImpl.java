@@ -27,6 +27,7 @@ public class RatingServiceImpl implements RatingService {
     private RestaurantRepository restaurantRepo;
 
     @Override
+    @Transactional
     public void addRating(Long orderId, double ratingValue, String review) {
         Order order = orderRepo.findById(orderId)
                 .orElseThrow(() -> new RuntimeException("Order not found with id: " + orderId));
@@ -50,17 +51,18 @@ public class RatingServiceImpl implements RatingService {
         rating.setRating(ratingValue);
         rating.setReview(review);
         rating.setRatingDate(LocalDateTime.now());
-        // setting rating to particular order
-        order.setRating(rating);
-        orderRepo.save(order);
 
         ratingRepo.save(rating);
+
+        order.setRating(rating);
+        orderRepo.save(order);
 
         // Recalculate and update restaurant average rating
         calculateAndupdateRestaurantAverageRating(order.getRestaurant().getId());
     }
 
     @Override
+    @Transactional
     public void updateRating(Long ratingId, double ratingValue, String review) {
         Rating existingRating = ratingRepo.findById(ratingId)
                 .orElseThrow(() -> new RuntimeException("Rating not found with id: " + ratingId));

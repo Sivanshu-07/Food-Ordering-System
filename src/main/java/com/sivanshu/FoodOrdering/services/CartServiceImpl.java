@@ -34,8 +34,7 @@ public class CartServiceImpl implements CartService {
         }
         else if(!Objects.equals(cart.getRestaurant().getId(), foodItem.getRestaurant().getId())){
             // Different restaurant is not allowed
-            throw new RuntimeException("You can order from only one restaurant at a time."); // if this statement execute then method will end here
-
+            throw new RuntimeException("You can order from only one restaurant at a time.");
         }
         Optional<CartItem> existingcartItem = cartItemRepo.findByCartAndFoodItem(cart,foodItem);
         if(existingcartItem.isPresent()){
@@ -77,10 +76,8 @@ public class CartServiceImpl implements CartService {
     @Override
     public void clearCart(Long customerId) {
         Cart cart = cartrepo.findByCustomerId(customerId);
-        // We are not deleting the cart as it is permanent when the customer register
-        // we are deleting cartitems from the respective cart bcuz if the carditem gets deleted->Cart will automatically become empty
         List<CartItem> cartItems = cart.getCartItems();
-        cartItemRepo.deleteAll(cartItems); // whenever we need to delete the whole list we will use deleteAll() provided by JpaRepo
+        cartItemRepo.deleteAll(cartItems);
         cart.getCartItems().clear();
         cart.setRestaurant(null);
         cartrepo.save(cart);

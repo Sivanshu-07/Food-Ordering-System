@@ -20,6 +20,10 @@ public class CustomerController {
         cservice.registerCustomer(customer);
         return "Customer Registered Successfully !";
     }
+    @PostMapping("/login/email/{email}/password/{password}")
+    public Customer login(@PathVariable String email, @PathVariable String password) {
+        return cservice.login(email, password);
+    }
     @GetMapping
     public List<Customer> getAllCustomer(){
         return cservice.viewAllCustomer();
