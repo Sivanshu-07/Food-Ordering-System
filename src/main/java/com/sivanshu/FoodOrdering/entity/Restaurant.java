@@ -21,7 +21,7 @@ public class Restaurant {
     private String phone;
 
     @Column(nullable = false)
-    private double rating; // this will store average restaurant rating given by a customer
+    private double rating; // this will store average restaurant rating given by customers
 
     public Long getId() {
         return id;

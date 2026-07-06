@@ -46,4 +46,9 @@ public class OrderController {
     public List<Order> getOrdersByStatus(@PathVariable OrderStatus status) {
         return orderService.viewOrderByStatus(status);
     }
+    @DeleteMapping("/{order_id}")
+    public String deleteOrder(@PathVariable Long order_id){
+        orderService.deleteOrder(order_id);
+        return "Order with Id: "+order_id+ " Deleted SuccessFully !";
+    }
 }

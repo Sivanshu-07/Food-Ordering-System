@@ -83,4 +83,12 @@ public class OrderServiceImpl implements OrderService{
     public List<Order> viewOrderByStatus(OrderStatus status) {
         return orderRepo.findByOrderStatus(status);
     }
+
+    @Override
+    public void deleteOrder(Long orderId) {
+        Order order = orderRepo.findById(orderId)
+                .orElseThrow(() ->
+                        new RuntimeException("Order not found with id: " + orderId));
+        orderRepo.delete(order);
+    }
 }

@@ -43,7 +43,10 @@ public class RestaurantServiceImpl implements RestaurantService{
     }
 
     @Override
-    public void deleteRestaurant(Long id) {
-        resrepo.deleteById(id);
+    public void deleteRestaurant(Long restaurantId) {
+        Restaurant restaurant = resrepo.findById(restaurantId)
+                .orElseThrow(() ->
+                        new RuntimeException("Restaurant not found with id: " + restaurantId));
+        resrepo.delete(restaurant);
     }
 }

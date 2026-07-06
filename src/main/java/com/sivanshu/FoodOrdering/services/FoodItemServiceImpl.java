@@ -47,8 +47,11 @@ public class FoodItemServiceImpl implements FoodItemService{
     }
 
     @Override
-    public void deleteFoodItem(Long id) { // here id -> FoodItem id
-        foodrepo.deleteById(id);
+    public void deleteFoodItem(Long foodItemId) {
+        FoodItem foodItem = foodrepo.findById(foodItemId)
+                .orElseThrow(() ->
+                        new RuntimeException("FoodItem not found with id: " + foodItemId));
+        foodrepo.delete(foodItem);
     }
 
     @Override

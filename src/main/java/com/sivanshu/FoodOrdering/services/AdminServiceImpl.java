@@ -2,6 +2,7 @@ package com.sivanshu.FoodOrdering.services;
 
 import com.sivanshu.FoodOrdering.entity.*;
 import com.sivanshu.FoodOrdering.repository.*;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -111,7 +112,7 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    @jakarta.transaction.Transactional
+    @Transactional
     public void deleteRating(Long ratingId) {
         Rating rating = ratingRepo.findById(ratingId).orElseThrow(()->new RuntimeException("Rating not found with Id: "+ratingId));
         Order order = rating.getOrder();

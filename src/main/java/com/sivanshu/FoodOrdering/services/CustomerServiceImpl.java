@@ -50,8 +50,11 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public void deleteCustomer(Long id) {
-        crepo.deleteById(id);
+    public void deleteCustomer(Long customerId) {
+        Customer customer = crepo.findById(customerId)
+                .orElseThrow(() ->
+                        new RuntimeException("Customer not found with id: " + customerId));
+        crepo.delete(customer);
     }
 
     @Override

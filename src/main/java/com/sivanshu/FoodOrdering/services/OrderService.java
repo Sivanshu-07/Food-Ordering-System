@@ -20,4 +20,6 @@ public interface OrderService {
 
     // Admin
     List<Order> viewOrderByStatus(OrderStatus status);
+
+    void deleteOrder(Long order_id);
 }

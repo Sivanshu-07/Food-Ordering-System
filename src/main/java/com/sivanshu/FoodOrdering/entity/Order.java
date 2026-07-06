@@ -23,7 +23,7 @@ public class Order {
     private Restaurant restaurant;
 
     @JsonManagedReference
-    @OneToOne(mappedBy = "order")
+    @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
     private Rating rating; // this will not create a separate column(rating) in order table , here rating is just mappedBy order that's it
 
     @Column(nullable = false)
@@ -40,7 +40,7 @@ public class Order {
     private List<OrderItem> orderItems;
 
     @JsonManagedReference
-    @OneToOne(mappedBy = "order")
+    @OneToOne(mappedBy = "order",cascade = CascadeType.ALL)
     private Payment payment;
 
     public Payment getPayment() {
